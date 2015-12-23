@@ -234,5 +234,8 @@ module Program =
         pass "1 + 2 # a comment\r\n / 20" (Arithmetic(Literal(Float(1.0)), Plus, Arithmetic(Literal(Float(2.0)), Divide, Literal(Float(20.0)))))
 
         summarize()
-        System.Console.ReadKey() |> ignore
-        0
+
+        if results.Failed then
+            1
+        else
+            0
