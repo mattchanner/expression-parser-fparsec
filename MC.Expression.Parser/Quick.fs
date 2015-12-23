@@ -88,19 +88,18 @@ module Program =
         doesNotError "-2 - -3"
         doesNotError "average(list(1,2,3) + array(4,5,6)) + [var]"
         doesNotError "fn( 3 * x( 1, -( 2 - 1)))"
-        doesNotError "foreach([AssayPlate:History_Count], {if(or(item0 = '', item0 = 0,item0 = -1, item0 = 1), '', cdbl(item0))})"
+        doesNotError "foreach([History_Count], {if(or(item0 = '', item0 = 0,item0 = -1, item0 = 1), '', cdbl(item0))})"
         doesNotError "a([c] + -1)"
         doesNotError "fn([a], [b], fn2(1, 2 + 3))"
 
-        // XE defects
         pass "filter([var], {item % 2 = 0})"
              (Filter(Var("var"), Lamda([Comparison(Arithmetic(Ident("item"), Modulo, Literal(Float(2.0))), Eq, Literal(Float(0.0)))])))
 
-        pass "{item1 * Power( [Test:Dilution_Factor], -( item0 - 1))}"
+        pass "{item1 * Power( [Dilution], -( item0 - 1))}"
              (Lamda([Arithmetic(Ident("item1"), 
                                 Multiply, 
                                 Func("Power", 
-                                     Args([Var("Test:Dilution_Factor"); 
+                                     Args([Var("Dilution"); 
                                            UnaryOp(Minus, 
                                                    Arithmetic(Ident("item0"), 
                                                               Minus, 
